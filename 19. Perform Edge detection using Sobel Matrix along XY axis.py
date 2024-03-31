@@ -1,13 +1,12 @@
 import cv2 
-import numpy as np 
-img1 = cv2.imread("D:\OpenCv\Kohli.jpg") 
-img2 = cv2.imread("D:\OpenCv\Dhoni.jpg") 
-pts1 = np.array([[50, 50], [200, 50], [50, 200], [200, 200]]) 
-pts2 = np.array([[100, 100], [300, 100], [100, 300], [300, 300]]) 
-H, _ = cv2.findHomography(pts1, pts2) 
-dst = cv2.warpPerspective(img1, H, (img2.shape[1], img2.shape[0])) 
-cv2.imshow('img1', img1) 
-cv2.imshow('img2', img2) 
-cv2.imshow('dst', dst) 
+ img = cv2.imread("C:/Users/Welcome/OneDrive/Pictures/Saved Pictures/cat.jpeg")  
+# Display original image 
+cv2.imshow('Original', img) 
 cv2.waitKey(0) 
-cv2.destroyAllWindows() 
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
+# Blur the image for better edge detection 
+img_blur = cv2.GaussianBlur(img_gray, (3,3), 0)  
+ sobelxy = cv2.Sobel(src=img_blur, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=5) # Combined X and Y 
+Sobel Edge Detection 
+cv2.imshow('Sobel X Y using Sobel() function', sobelxy) 
+cv2.waitKey(0)
