@@ -1,21 +1,13 @@
-import cv2
-import numpy as np
-cap = cv2.VideoCapture("D:\OpenCv\harry_-_44323 (540p).mp4")
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-src_points = np.float32([[0, 0], [width - 1, 0], [0, height - 1], [width - 1, height - 1]])
-dst_points = np.float32([[0, 0], [width - 1, 0], [0, height - 1], [width - 150, height - 1]])
-M = cv2.getPerspectiveTransform(src_points, dst_points)
-while cap.isOpened():
-    ret, frame = cap.read()
-    if ret:
-       
-        warped_frame = cv2.warpPerspective(frame, M, (frame.shape[1], frame.shape[0]))
-        cv2.imshow('Warped Frame', warped_frame)
-        
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
-    else:
-        break
-cap.release()
-cv2.destroyAllWindows()
+import cv2 
+import numpy as np 
+img1 = cv2.imread("D:\OpenCv\Kohli.jpg") 
+img2 = cv2.imread("D:\OpenCv\Dhoni.jpg") 
+pts1 = np.array([[50, 50], [200, 50], [50, 200], [200, 200]]) 
+pts2 = np.array([[100, 100], [300, 100], [100, 300], [300, 300]]) 
+H, _ = cv2.findHomography(pts1, pts2) 
+dst = cv2.warpPerspective(img1, H, (img2.shape[1], img2.shape[0])) 
+cv2.imshow('img1', img1) 
+cv2.imshow('img2', img2) 
+cv2.imshow('dst', dst) 
+cv2.waitKey(0) 
+cv2.destroyAllWindows() 
